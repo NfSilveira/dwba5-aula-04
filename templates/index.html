@@ -5,7 +5,14 @@
 
 {% block page_content %}
 <div class="page-header">
-    <h1>Hello, {% if name %}{{ name }}{% else %}Stranger{% endif %}!</h1>
+    <h1>Olá, {% if session.get('name') and session.get('surname') %}{{ session.get('name') }} {{ session.get('surname') }}{% else %}Estranho{% endif %}!</h1>
+    <h2>A sua Instituição de ensino é {% if session.get('school_name') %}{{ session.get('school_name') }}{% else %}None{% endif %}</h2>
+    <h2>Está cursando a disciplina de {% if session.get('course') %}{{ session.get('course') }}{% else %}None{% endif %}</h2>
+    <h3>O IP do computador remoto é: {% if session.get('remote_address') %}{{ session.get('remote_address') }}{% else %}None{% endif %}</h3>
+    <h3>O host da aplicação é: {% if session.get('host') %}{{ session.get('host') }}{% else %}None{% endif %}</h3>
 </div>
 {{ wtf.quick_form(form) }}
+<br>
+<p>The local date and time is {{ moment(current_time).format('LLL') }}.</p>
+<p>That was {{ moment(current_time).fromNow(refresh=True) }}.</p>
 {% endblock %}
